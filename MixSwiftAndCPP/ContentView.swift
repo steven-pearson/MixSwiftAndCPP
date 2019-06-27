@@ -8,16 +8,19 @@
 
 import SwiftUI
 
+
 struct ContentView : View {
+    @ObjectBinding var viewModel : ClockViewModel
     var body: some View {
-        Text("Hello World")
+        Text(viewModel.model.currentTime)
+            .font(.largeTitle)
     }
 }
 
 #if DEBUG
 struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: ClockViewModel())
     }
 }
 #endif
