@@ -11,15 +11,16 @@ import SwiftUI
 import Combine
 
 class ClockViewModel : NSObject, BindableObject {
+    typealias PublisherType = AnyPublisher<String, Never>
     
     var model : TimeInfo
     
-    let didChange: AnyPublisher<String, Never>
+    let willChange : PublisherType
     
     override init() {
         self.model = TimeInfo()
         
-        didChange = self.model.publisher(for: \.currentTime)
+        willChange = self.model.publisher(for: \.currentTime)
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
