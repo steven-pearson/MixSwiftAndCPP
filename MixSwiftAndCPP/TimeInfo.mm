@@ -19,9 +19,14 @@
 
 @implementation TimeInfo
 
+NSDateFormatter *_formatter;
+
 -(id)init {
     self = [super init];
     if (self) {
+        _formatter = [[NSDateFormatter alloc] init];
+        [_formatter setDateFormat:@"HH:mm:ss"];
+
         [self updateTime];
         [NSTimer scheduledTimerWithTimeInterval:1.0
                                          target:self
@@ -32,14 +37,10 @@
     return self;
 }
 
--(void)updateTime{
+-(void)updateTime {
     [self willChangeValueForKey:@"currentTime"];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"HH:mm:ss"];
-    
-    NSDate *currentDate = [NSDate date];
-    _internal = [formatter stringFromDate:currentDate];
+    _internal = [_formatter stringFromDate:[NSDate date]];
     
     [self didChangeValueForKey:@"currentTime"];
 }
