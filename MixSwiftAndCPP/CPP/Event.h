@@ -58,7 +58,8 @@
     class CPropertyChangingEventArgs : public CEventArgs {
         
     public:
-        CPropertyChangingEventArgs(const std::string& name) : _name(name) {
+        CPropertyChangingEventArgs(const std::string& name) :
+            _name(name) {
         }
         
         const std::string& name() const { return _name; }

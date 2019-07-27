@@ -51,22 +51,22 @@ EventHandlerID _propertyChangingId;
         [self willChangeValueForKey:[NSString stringWithCString:args.name().c_str() encoding:NSASCIIStringEncoding]];
     });
     
-/*    _grossChangingId = _object->Gross.OnChanging.Subscribe(^(CEventArgs &args) {
-        NSLog(@"Gross changing value is-%f", (const double)self->_object->Gross);
+    _grossChangingId = _object->Gross.Changing.Subscribe(^(CPropertyChangingEventArgs &args) {
+        //NSLog(@"Gross changing value is-%f", (const double)self.gross);
         [self willChangeValueForKey:@"gross"];
     });
-    _grossChangedId = _object->Gross.OnChanged.Subscribe(^(CEventArgs &args) {
-        NSLog(@"Gross changed value is-%f", (const double)self->_object->Gross);
+    _grossChangedId = _object->Gross.Changed.Subscribe(^(CPropertyChangedEventArgs &args) {
+        //NSLog(@"Gross changed value is-%f", (const double)self._object.Gross);
         [self didChangeValueForKey:@"gross"];
     });
-    _taxChangingId = _object->Tax.OnChanging.Subscribe(^(CEventArgs &args) {
-        NSLog(@"Tax changing value is-%f", (const double)self->_object->Tax);
+    _taxChangingId = _object->Tax.Changing.Subscribe(^(CPropertyChangingEventArgs &args) {
+        //NSLog(@"Tax changing value is-%f", (const double)self._object.Tax);
         [self willChangeValueForKey:@"tax"];
     });
-    _taxChangedId = _object->Tax.OnChanged.Subscribe(^(CEventArgs &args) {
-        NSLog(@"Tax changed value is-%f", (const double)self->_object->Tax);
+    _taxChangedId = _object->Tax.Changed.Subscribe(^(CPropertyChangedEventArgs &args) {
+        //NSLog(@"Tax changed value is-%f", (const double)self._object.Tax);
         [self didChangeValueForKey:@"tax"];
-    });*/
+    });
 }
 
 -(void)detachObject {
@@ -82,7 +82,7 @@ EventHandlerID _propertyChangingId;
 }
 
 -(void)setNet:(NSNumber *)value {
-    NSLog(@"Trying to Net to %@", value);
+    NSLog(@"Trying to change Net to %@", value);
     _object->Net = [value doubleValue];
 }
 
@@ -91,7 +91,7 @@ EventHandlerID _propertyChangingId;
 }
 
 -(void)setTax:(NSNumber *)value {
-    NSLog(@"Trying to Tax to %@", value);
+    NSLog(@"Trying to change Tax to %@", value);
     _object->Tax = [value doubleValue];
 }
 
