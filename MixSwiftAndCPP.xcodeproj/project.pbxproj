@@ -7,18 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CA80B7E322B624F800E753F0 /* ClockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80B7E222B624F800E753F0 /* ClockViewModel.swift */; };
+		AA9392DD22E6320F005F51F1 /* CTaxCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA9392DC22E6320F005F51F1 /* CTaxCalculator.cpp */; };
+		AA9392E022E63238005F51F1 /* TaxCalc.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA9392DE22E63238005F51F1 /* TaxCalc.mm */; };
+		CA80B7E322B624F800E753F0 /* TaxCalcViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80B7E222B624F800E753F0 /* TaxCalcViewModel.swift */; };
 		CABE895C22B2522400D344A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE895B22B2522400D344A2 /* AppDelegate.swift */; };
 		CABE895E22B2522400D344A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE895D22B2522400D344A2 /* SceneDelegate.swift */; };
 		CABE896022B2522400D344A2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE895F22B2522400D344A2 /* ContentView.swift */; };
 		CABE896222B2522500D344A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CABE896122B2522500D344A2 /* Assets.xcassets */; };
 		CABE896522B2522500D344A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CABE896422B2522500D344A2 /* Preview Assets.xcassets */; };
 		CABE896822B2522500D344A2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CABE896622B2522500D344A2 /* LaunchScreen.storyboard */; };
-		CABE897222B2527D00D344A2 /* TimeInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = CABE897122B2527D00D344A2 /* TimeInfo.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CA80B7E222B624F800E753F0 /* ClockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockViewModel.swift; sourceTree = "<group>"; };
+		AA9392D822E6320F005F51F1 /* CTransactionDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTransactionDto.h; sourceTree = "<group>"; };
+		AA9392D922E6320F005F51F1 /* CTaxCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTaxCalculator.h; sourceTree = "<group>"; };
+		AA9392DA22E6320F005F51F1 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		AA9392DB22E6320F005F51F1 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
+		AA9392DC22E6320F005F51F1 /* CTaxCalculator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTaxCalculator.cpp; sourceTree = "<group>"; };
+		AA9392DE22E63238005F51F1 /* TaxCalc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TaxCalc.mm; sourceTree = "<group>"; };
+		AA9392DF22E63238005F51F1 /* TaxCalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaxCalc.h; sourceTree = "<group>"; };
+		CA80B7E222B624F800E753F0 /* TaxCalcViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxCalcViewModel.swift; sourceTree = "<group>"; };
 		CABE895822B2522400D344A2 /* MixSwiftAndCPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixSwiftAndCPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABE895B22B2522400D344A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CABE895D22B2522400D344A2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,8 +36,6 @@
 		CABE896722B2522500D344A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CABE896922B2522500D344A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CABE896F22B2527C00D344A2 /* MixSwiftAndCPP-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MixSwiftAndCPP-Bridging-Header.h"; sourceTree = "<group>"; };
-		CABE897022B2527D00D344A2 /* TimeInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeInfo.h; sourceTree = "<group>"; };
-		CABE897122B2527D00D344A2 /* TimeInfo.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TimeInfo.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA9392D622E63172005F51F1 /* ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				AA9392DF22E63238005F51F1 /* TaxCalc.h */,
+				AA9392DE22E63238005F51F1 /* TaxCalc.mm */,
+			);
+			path = ObjC;
+			sourceTree = "<group>";
+		};
+		AA9392D722E6317D005F51F1 /* CPP */ = {
+			isa = PBXGroup;
+			children = (
+				AA9392DC22E6320F005F51F1 /* CTaxCalculator.cpp */,
+				AA9392D922E6320F005F51F1 /* CTaxCalculator.h */,
+				AA9392D822E6320F005F51F1 /* CTransactionDto.h */,
+				AA9392DA22E6320F005F51F1 /* Event.h */,
+				AA9392DB22E6320F005F51F1 /* Property.h */,
+			);
+			path = CPP;
+			sourceTree = "<group>";
+		};
 		CABE894F22B2522400D344A2 = {
 			isa = PBXGroup;
 			children = (
@@ -62,6 +89,8 @@
 		CABE895A22B2522400D344A2 /* MixSwiftAndCPP */ = {
 			isa = PBXGroup;
 			children = (
+				AA9392D722E6317D005F51F1 /* CPP */,
+				AA9392D622E63172005F51F1 /* ObjC */,
 				CABE895B22B2522400D344A2 /* AppDelegate.swift */,
 				CABE895D22B2522400D344A2 /* SceneDelegate.swift */,
 				CABE895F22B2522400D344A2 /* ContentView.swift */,
@@ -69,10 +98,8 @@
 				CABE896622B2522500D344A2 /* LaunchScreen.storyboard */,
 				CABE896922B2522500D344A2 /* Info.plist */,
 				CABE896322B2522500D344A2 /* Preview Content */,
-				CABE897022B2527D00D344A2 /* TimeInfo.h */,
-				CABE897122B2527D00D344A2 /* TimeInfo.mm */,
 				CABE896F22B2527C00D344A2 /* MixSwiftAndCPP-Bridging-Header.h */,
-				CA80B7E222B624F800E753F0 /* ClockViewModel.swift */,
+				CA80B7E222B624F800E753F0 /* TaxCalcViewModel.swift */,
 			);
 			path = MixSwiftAndCPP;
 			sourceTree = "<group>";
@@ -157,11 +184,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA9392E022E63238005F51F1 /* TaxCalc.mm in Sources */,
 				CABE895C22B2522400D344A2 /* AppDelegate.swift in Sources */,
-				CABE897222B2527D00D344A2 /* TimeInfo.mm in Sources */,
-				CA80B7E322B624F800E753F0 /* ClockViewModel.swift in Sources */,
+				CA80B7E322B624F800E753F0 /* TaxCalcViewModel.swift in Sources */,
 				CABE895E22B2522400D344A2 /* SceneDelegate.swift in Sources */,
 				CABE896022B2522400D344A2 /* ContentView.swift in Sources */,
+				AA9392DD22E6320F005F51F1 /* CTaxCalculator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
