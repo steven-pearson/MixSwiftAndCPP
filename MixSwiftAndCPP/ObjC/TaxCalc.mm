@@ -14,10 +14,6 @@
 @implementation TaxCalc
 
 CTaxCalculator* _object;
-EventHandlerID _grossChangingId;
-EventHandlerID _grossChangedId;
-EventHandlerID _taxChangingId;
-EventHandlerID _taxChangedId;
 
 EventHandlerID _propertyChangedId;
 EventHandlerID _propertyChangingId;
@@ -41,31 +37,14 @@ EventHandlerID _propertyChangingId;
 -(void)attachObject:(nonnull CTaxCalculator*)object {
     _object = object;
 
-    _propertyChangedId = _object->PropertyChanged.Subscribe(^(CPropertyChangedEventArgs &args) {
+    _propertyChangedId = _object->PropertyChanged.Subscribe(^(CNotifyPropertyChangedEventArgs &args) {
         NSLog(@"Property changed is %s", args.name().c_str());
         [self didChangeValueForKey:[NSString stringWithCString:args.name().c_str() encoding:NSASCIIStringEncoding]];
     });
 
-    _propertyChangingId = _object->PropertyChanging.Subscribe(^(CPropertyChangingEventArgs &args) {
+    _propertyChangingId = _object->PropertyChanging.Subscribe(^(CNotifyPropertyChangingEventArgs &args) {
         NSLog(@"Property changing is %s", args.name().c_str());
         [self willChangeValueForKey:[NSString stringWithCString:args.name().c_str() encoding:NSASCIIStringEncoding]];
-    });
-    
-    _grossChangingId = _object->Gross.Changing.Subscribe(^(CPropertyChangingEventArgs &args) {
-        //NSLog(@"Gross changing value is-%f", (const double)self.gross);
-        [self willChangeValueForKey:@"gross"];
-    });
-    _grossChangedId = _object->Gross.Changed.Subscribe(^(CPropertyChangedEventArgs &args) {
-        //NSLog(@"Gross changed value is-%f", (const double)self._object.Gross);
-        [self didChangeValueForKey:@"gross"];
-    });
-    _taxChangingId = _object->Tax.Changing.Subscribe(^(CPropertyChangingEventArgs &args) {
-        //NSLog(@"Tax changing value is-%f", (const double)self._object.Tax);
-        [self willChangeValueForKey:@"tax"];
-    });
-    _taxChangedId = _object->Tax.Changed.Subscribe(^(CPropertyChangedEventArgs &args) {
-        //NSLog(@"Tax changed value is-%f", (const double)self._object.Tax);
-        [self didChangeValueForKey:@"tax"];
     });
 }
 
@@ -78,6 +57,7 @@ EventHandlerID _propertyChangingId;
 }
 
 -(NSNumber*)net {
+    NSLog(@"Getting Net %f", (const double)_object->Net);
     return [NSNumber numberWithDouble:_object->Net];
 }
 
@@ -87,6 +67,7 @@ EventHandlerID _propertyChangingId;
 }
 
 -(NSNumber*)tax {
+    NSLog(@"Getting Tax %f", (const double)_object->Tax);
     return [NSNumber numberWithDouble:_object->Tax];
 }
 
@@ -96,6 +77,7 @@ EventHandlerID _propertyChangingId;
 }
 
 -(NSNumber*)taxRate {
+    NSLog(@"Getting Tax Rate %f", (const double)_object->TaxRate);
     return [NSNumber numberWithDouble:_object->TaxRate];
 }
 
@@ -104,6 +86,7 @@ EventHandlerID _propertyChangingId;
 }
 
 -(NSNumber*)gross {
+    NSLog(@"Getting Gross %f", (const double)_object->Gross);
     return [NSNumber numberWithDouble:_object->Gross];
 }
 

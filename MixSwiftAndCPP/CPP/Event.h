@@ -55,10 +55,10 @@
         const bool _canStop;
     };
 
-    class CPropertyChangingEventArgs : public CEventArgs {
+    class CNotifyPropertyChangingEventArgs : public CEventArgs {
         
     public:
-        CPropertyChangingEventArgs(const std::string& name) :
+        CNotifyPropertyChangingEventArgs(const std::string& name) :
             _name(name) {
         }
         
@@ -68,16 +68,50 @@
         const std::string& _name;
     };
 
-    class CPropertyChangedEventArgs : public CEventArgs {
+    class CNotifyPropertyChangedEventArgs : public CEventArgs {
         
     public:
-        CPropertyChangedEventArgs(const std::string& name) : _name(name) {
+        CNotifyPropertyChangedEventArgs(const std::string& name) : _name(name) {
         }
         
         const std::string& name() const { return _name; }
         
     private:
         const std::string& _name;
+    };
+
+    template<typename ParamT>
+    class CPropertyChangingEventArgs : public CEventArgs {
+        
+    public:
+        CPropertyChangingEventArgs(const ParamT& proposedValue, const std::string& name) :
+            _proposedValue(proposedValue),
+            _name(name) {
+        }
+        
+        const std::string& name() const { return _name; }
+        const ParamT& proposedValue() const { return _proposedValue; }
+
+    private:
+        const std::string& _name;
+        const ParamT& _proposedValue;
+    };
+
+    template<typename ParamT>
+    class CPropertyChangedEventArgs : public CEventArgs {
+        
+    public:
+        CPropertyChangedEventArgs(const ParamT& newValue, const std::string& name) :
+            _newValue(newValue),
+            _name(name) {
+        }
+        
+        const std::string& name() const { return _name; }
+        const ParamT& newValue() const { return _newValue; }
+
+    private:
+        const std::string& _name;
+        const ParamT& _newValue;
     };
 
     template<typename ParamT>

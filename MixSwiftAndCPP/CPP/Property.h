@@ -21,10 +21,10 @@
 
 //namespace legacy {
 
-    class IPropertyChangeNotification {
+    class INotifyPropertyChange {
     public:
-        virtual void OnPropertyChanging(CPropertyChangingEventArgs& args) const = 0;
-        virtual void OnPropertyChanged(CPropertyChangedEventArgs& args) const = 0;
+        virtual void OnPropertyChanging(CNotifyPropertyChangingEventArgs& args) const = 0;
+        virtual void OnPropertyChanged(CNotifyPropertyChangedEventArgs& args) const = 0;
     };
 
     class CPropertyBase {
@@ -47,7 +47,7 @@
         typedef std::function<TValueType()> Getter;
         typedef std::function<void(TValueType)> Setter;
 
-        CProperty(const char* name, IPropertyChangeNotification* container, Getter getter, Setter setter) : CPropertyBase(name) {
+        CProperty(const char* name, INotifyPropertyChange* container, Getter getter, Setter setter) : CPropertyBase(name) {
             _container = container;
             _set = setter;
             _get = getter;
@@ -59,16 +59,14 @@
         void operator =(TValueType value) {
             if (_set != NULL) {
                 bool propertyChanging = true;
-                
-                if (_get != NULL) {
-                    TValueType oldValue = _get();
-                    propertyChanging = (oldValue != value);
-                }
+                TValueType oldValue = _get();
+
+                propertyChanging = (oldValue != value);
 
                 if (propertyChanging) {
-                    OnChanging();
+                    OnChanging(oldValue);
                     _set(value);
-                    OnChanged();
+                    OnChanged(value);
                 }
             }
         }
@@ -88,31 +86,34 @@
             return TValueType(NULL);
         }
         
-        CEventBase<CPropertyChangingEventArgs> Changing;
-        CEventBase<CPropertyChangedEventArgs> Changed;
+        CEventBase<CPropertyChangingEventArgs<TValueType>> Changing;
         
-        void OnChanging() {
+        CEventBase<CPropertyChangedEventArgs<TValueType>> Changed;
+        
+        void OnChanging(const TValueType &proposedValue) {
             // TODO Add the ability to cancel here by adding some event args and a cancel option
             
-            CPropertyChangingEventArgs args(name());
+            CPropertyChangingEventArgs<TValueType> args(proposedValue, name());
             if (_container) {
-                _container->OnPropertyChanging(args);
+                CNotifyPropertyChangingEventArgs notifyArgs(name());
+                _container->OnPropertyChanging(notifyArgs);
             }
             Changing.Notify(args);
             
             // TODO If cancel, put the original value back etc
         }
         
-        void OnChanged() {
-            CPropertyChangedEventArgs args(name());
+        void OnChanged(const TValueType &newValue) {
+            CPropertyChangedEventArgs<TValueType> args(newValue, name());
             Changed.Notify(args);
             if (_container) {
-                _container->OnPropertyChanged(args);
+                CNotifyPropertyChangedEventArgs notifyArgs(name());
+                _container->OnPropertyChanged(notifyArgs);
             }
         }
 
     protected:
-        IPropertyChangeNotification* _container;
+        INotifyPropertyChange* _container;
         
     private:
         Setter _set;

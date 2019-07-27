@@ -11,7 +11,7 @@
 
 //using namespace legacy;
 
-class CTaxCalculator : public IPropertyChangeNotification {
+class CTaxCalculator : public INotifyPropertyChange {
 public:
     CTaxCalculator(CTransactionDto *transactionEntity);
     ~CTaxCalculator();
@@ -21,8 +21,8 @@ public:
     CProperty<const double> TaxRate;
     CProperty<const double> Gross;
     
-    CEventBase<CPropertyChangingEventArgs> PropertyChanging;
-    CEventBase<CPropertyChangedEventArgs> PropertyChanged;
+    CEventBase<CNotifyPropertyChangingEventArgs> PropertyChanging;
+    CEventBase<CNotifyPropertyChangedEventArgs> PropertyChanged;
 
 private:
     CTransactionDto *_dto;
@@ -31,8 +31,8 @@ private:
     void OnTaxChanged(CEventArgs& args);
     void OnTaxRateChanged(CEventArgs& args);
     
-    void OnPropertyChanging(CPropertyChangingEventArgs& args) const;
-    void OnPropertyChanged(CPropertyChangedEventArgs& args) const;
+    void OnPropertyChanging(CNotifyPropertyChangingEventArgs& args) const;
+    void OnPropertyChanged(CNotifyPropertyChangedEventArgs& args) const;
 
     void CalculateTax();
     void CalculateGross();

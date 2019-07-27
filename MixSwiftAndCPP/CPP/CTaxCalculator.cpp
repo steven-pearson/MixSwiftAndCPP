@@ -16,9 +16,9 @@ CTaxCalculator::CTaxCalculator(CTransactionDto *dto) :
     TaxRate("taxRate", this, [=](){ return this->_dto->_taxRate; }, [=](const double value) { this->_dto->_taxRate = value; }),
     Gross("gross", this, [=](){ return this->_dto->_gross; }, NULL)
 {
-    _netChangedHandlerID = Net.Changed.Subscribe([=](CPropertyChangedEventArgs& args) { CalculateTax(); });
-    _taxRateChangedHandlerID = TaxRate.Changed.Subscribe([=](CPropertyChangedEventArgs& args) { CalculateTax(); });
-    _taxChangedHandlerID = Tax.Changed.Subscribe([=](CPropertyChangedEventArgs& args) { CalculateGross(); });
+    _netChangedHandlerID = Net.Changed.Subscribe([=](CPropertyChangedEventArgs<const double>& args) { CalculateTax(); });
+    _taxRateChangedHandlerID = TaxRate.Changed.Subscribe([=](CPropertyChangedEventArgs<const double>& args) { CalculateTax(); });
+    _taxChangedHandlerID = Tax.Changed.Subscribe([=](CPropertyChangedEventArgs<const double>& args) { CalculateGross(); });
 }
 
 CTaxCalculator::~CTaxCalculator() {
@@ -44,19 +44,17 @@ void CTaxCalculator::CalculateTax() {
 }
 
 void CTaxCalculator::CalculateGross() {
-    CEventArgs args;
-    
     // gross is not writable so update the DTO but fire notifications
-    Gross.OnChanging();
+    Gross.OnChanging(_dto->_gross);
     _dto->_gross = Net + Tax;
-    Gross.OnChanged();
+    Gross.OnChanged(_dto->_gross);
 }
 
-void CTaxCalculator::OnPropertyChanging(CPropertyChangingEventArgs& args) const {
+void CTaxCalculator::OnPropertyChanging(CNotifyPropertyChangingEventArgs& args) const {
     PropertyChanging.Notify(args);
 }
 
-void CTaxCalculator::OnPropertyChanged(CPropertyChangedEventArgs& args) const {
+void CTaxCalculator::OnPropertyChanged(CNotifyPropertyChangedEventArgs& args) const {
     PropertyChanged.Notify(args);
 }
 

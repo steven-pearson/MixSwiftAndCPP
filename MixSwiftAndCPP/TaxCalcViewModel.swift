@@ -19,12 +19,11 @@ class TaxCalcViewModel : NSObject, BindableObject {
 
     override init() {
         self.model = TaxCalc()
-        
+        self.model.net = 100;
+        self.model.taxRate = 0.2;
+
         willChange = self.model.publisher(for: \.gross)
             .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
-        
-        self.model.net = 100;
-        self.model.taxRate = 0.2;
     }
 }

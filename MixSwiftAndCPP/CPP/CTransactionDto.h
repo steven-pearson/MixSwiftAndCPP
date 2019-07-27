@@ -6,8 +6,8 @@
 //  Copyright © 2019 Steve Pearson . All rights reserved.
 //
 
-#ifndef CTransaction_h
-#define CTransaction_h
+#ifndef CTransactionDto_h
+#define CTransactionDto_h
 
 #include <stdio.h>
 
@@ -30,4 +30,4 @@
     };
 //}
 
-#endif /* CTransaction_h */
+#endif /* CTransactionDto_h */
