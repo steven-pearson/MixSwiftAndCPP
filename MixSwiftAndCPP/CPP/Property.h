@@ -47,7 +47,7 @@
         typedef std::function<TValueType()> Getter;
         typedef std::function<void(TValueType)> Setter;
 
-        CProperty(const char* name, INotifyPropertyChange* container, Getter getter, Setter setter) : CPropertyBase(name) {
+        CProperty(const char* name, INotifyPropertyChange* container, Getter getter, Setter setter = NULL) : CPropertyBase(name) {
             _container = container;
             _set = setter;
             _get = getter;
