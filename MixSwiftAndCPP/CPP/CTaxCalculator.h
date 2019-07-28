@@ -16,10 +16,10 @@ public:
     CTaxCalculator(CTransactionDto *transactionEntity);
     ~CTaxCalculator();
         
-    CProperty<const double> Net;
-    CProperty<const double> Tax;
-    CProperty<const double> TaxRate;
-    CProperty<const double> Gross;
+    CProperty<double> Net;
+    CProperty<double> Tax;
+    CProperty<double> TaxRate;
+    CProperty<double> Gross;
     
     CEventBase<CNotifyPropertyChangingEventArgs> PropertyChanging;
     CEventBase<CNotifyPropertyChangedEventArgs> PropertyChanged;

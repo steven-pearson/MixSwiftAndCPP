@@ -16,9 +16,9 @@ CTaxCalculator::CTaxCalculator(CTransactionDto *dto) :
     TaxRate("taxRate", this, [=](){ return this->_dto->_taxRate; }, [=](const double value) { this->_dto->_taxRate = value; }),
     Gross("gross", this, [=](){ return this->_dto->_gross; })
 {
-    _netChangedHandlerID = Net.Changed.Subscribe([=](CPropertyChangedEventArgs<const double>& args) { CalculateTax(); });
-    _taxRateChangedHandlerID = TaxRate.Changed.Subscribe([=](CPropertyChangedEventArgs<const double>& args) { CalculateTax(); });
-    _taxChangedHandlerID = Tax.Changed.Subscribe([=](CPropertyChangedEventArgs<const double>& args) { CalculateGross(); });
+    _netChangedHandlerID = Net.Changed.Subscribe([=](CPropertyChangedEventArgs<double>& args) { CalculateTax(); });
+    _taxRateChangedHandlerID = TaxRate.Changed.Subscribe([=](CPropertyChangedEventArgs<double>& args) { CalculateTax(); });
+    _taxChangedHandlerID = Tax.Changed.Subscribe([=](CPropertyChangedEventArgs<double>& args) { CalculateGross(); });
 }
 
 CTaxCalculator::~CTaxCalculator() {
