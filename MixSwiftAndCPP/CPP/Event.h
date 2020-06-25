@@ -16,7 +16,7 @@
 #include <exception>
 #include <functional>
 
-//namespace legacy {
+namespace tax {
     typedef unsigned int EventHandlerID;
     
     struct event_exception: std::exception {
@@ -175,7 +175,7 @@
             }
         }
     };
-//}
+}
 
 #endif
 

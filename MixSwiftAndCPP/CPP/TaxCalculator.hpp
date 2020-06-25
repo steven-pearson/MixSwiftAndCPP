@@ -21,6 +21,7 @@ extern "C" {
     double getTaxRate(const void * context);
     void setTaxRate(const void * context, double value);
     double getTax(const void * context);
+    void setTax(const void * context, double value);
     double getGross(const void * context);
     int subscribeToPropertyChanged(const void * context, property_event_callback callback, const void * obj);
 

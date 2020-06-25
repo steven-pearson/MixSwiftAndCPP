@@ -10,7 +10,7 @@
 #include "CTaxCalculator.h"
 
 const void *createInstance() {
-    CTaxCalculator* instance = new CTaxCalculator(new CTransactionDto());
+    CTaxCalculator* instance = new CTaxCalculator(new tax::CTransactionDto());
     instance->TaxRate = 0.2;
     return instance;
 }
@@ -54,6 +54,12 @@ double getTax(const void * context) {
     CTaxCalculator* calc = (CTaxCalculator*)context;
     
     return calc->Tax;
+}
+
+void setTax(const void * context, double value) {
+    CTaxCalculator* calc = (CTaxCalculator*)context;
+    
+    calc->Tax = value;
 }
 
 double getGross(const void * context) {

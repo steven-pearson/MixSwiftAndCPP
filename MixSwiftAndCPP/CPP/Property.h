@@ -19,7 +19,7 @@
 
 #pragma pack(push, 1)
 
-//namespace legacy {
+namespace tax {
 
     class INotifyPropertyChange {
     public:
@@ -119,7 +119,7 @@
         Setter _set;
         Getter _get;
     };
-//}
+}
 
 #pragma pack(pop)
 

@@ -9,7 +9,7 @@
 #import "CTransactionDto.h"
 #import "Property.h"
 
-//using namespace legacy;
+using namespace tax;
 
 class CTaxCalculator : public INotifyPropertyChange {
 public:

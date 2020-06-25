@@ -12,19 +12,6 @@ class TaxCalcSwift : NSObject {
     
     let cppObject = UnsafeMutableRawPointer(mutating: createInstance())
     
-    override init() {
-        super.init()
-        
-        //subscribeToPropertyChanged(cppObject, { (_ name, _ context) in
-            
-            //let target = context!.assumingMemoryBound(to: TaxCalcSwift.self).pointee
-
-            //let str = String(cString: name!)
-            //target.willChangeValue(forKey: str)
-
-        //}, UnsafeRawPointer(Unmanaged.passUnretained(self).toOpaque()))
-    }
-    
     @objc dynamic var net: Double {
         get {
             getNet(cppObject)
@@ -49,7 +36,7 @@ class TaxCalcSwift : NSObject {
             return getTax(cppObject)
         }
         set {
-            
+            setTax(cppObject, newValue)
         }
     }
 

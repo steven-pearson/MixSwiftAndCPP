@@ -11,23 +11,14 @@
 
 #include <stdio.h>
 
-//namespace legacy {
+namespace tax {
     class CTransactionDto {
     public:
         double _net;
         double _tax;
         double _taxRate;
         double _gross;
-        
-    public:
-        CTransactionDto() {
-            _net = 0;
-            _tax = 0;
-            _taxRate = 0;
-            _gross = 0;
-        }
-        ~CTransactionDto() {}
     };
-//}
+}
 
 #endif /* CTransactionDto_h */
