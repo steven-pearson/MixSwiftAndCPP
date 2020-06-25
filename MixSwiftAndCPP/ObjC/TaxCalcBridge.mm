@@ -6,12 +6,12 @@
 //  Copyright © 2019 Steve Pearson . All rights reserved.
 //
 
-#import "TaxCalc.h"
+#import "TaxCalcBridge.h"
 
 #import "../CPP/CTaxCalculator.h"
 #import "../CPP/Event.h"
 
-@implementation TaxCalc
+@implementation TaxCalcBridge
 
 CTaxCalculator* _object;
 
@@ -37,22 +37,20 @@ EventHandlerID _propertyChangingId;
 -(void)attachObject:(nonnull CTaxCalculator*)object {
     _object = object;
 
-    _propertyChangedId = _object->PropertyChanged.Subscribe(^(CNotifyPropertyChangedEventArgs &args) {
-        NSLog(@"Property changed is %s", args.name().c_str());
-        [self didChangeValueForKey:[NSString stringWithCString:args.name().c_str() encoding:NSASCIIStringEncoding]];
-    });
+    //_propertyChangedId = _object->PropertyChanged.Subscribe(^(CNotifyPropertyChangedEventArgs &args) {
+        //NSLog(@"Property changed is %s", args.name().c_str());
+        //[self didChangeValueForKey:[NSString stringWithCString:args.name().c_str() encoding:NSASCIIStringEncoding]];
+    //});
 
-    _propertyChangingId = _object->PropertyChanging.Subscribe(^(CNotifyPropertyChangingEventArgs &args) {
-        NSLog(@"Property changing is %s", args.name().c_str());
-        [self willChangeValueForKey:[NSString stringWithCString:args.name().c_str() encoding:NSASCIIStringEncoding]];
-    });
+    //_propertyChangingId = _object->PropertyChanging.Subscribe(^(CNotifyPropertyChangingEventArgs &args) {
+        //NSLog(@"Property changing is %s", args.name().c_str());
+        //[self willChangeValueForKey:[NSString stringWithCString:args.name().c_str() encoding:NSASCIIStringEncoding]];
+    //});
 }
 
 -(void)detachObject {
-    /*_object->Gross.OnChanging.Unsubscribe(_grossChangingId);
-    _object->Gross.OnChanged.Unsubscribe(_grossChangedId);
-    _object->Tax.OnChanging.Unsubscribe(_taxChangingId);
-    _object->Tax.OnChanged.Unsubscribe(_taxChangedId);*/
+    //_object->PropertyChanged.Unsubscribe(_propertyChangedId);
+    //_object->PropertyChanging.Unsubscribe(_propertyChangingId);
     _object = NULL;
 }
 

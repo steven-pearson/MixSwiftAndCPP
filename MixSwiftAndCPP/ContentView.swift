@@ -9,21 +9,15 @@
 import SwiftUI
 
 struct ContentView : View {
-    @ObjectBinding var viewModel : TaxCalcViewModel
-    
-    private let currencyFormatter: NumberFormatter = {
-        let f = NumberFormatter()
-        f.numberStyle = .currency
-        return f
-    }()
+    @ObservedObject var viewModel : TaxCalcViewModel
     
     var body: some View {
         VStack{
-            TextField("Net", value:$viewModel.model.net, formatter:currencyFormatter)
+            TextField("Net", value:$viewModel.model.net, formatter:viewModel.currencyFormatter)
                 .font(.largeTitle)
-            TextField("Tax", value:$viewModel.model.tax, formatter:currencyFormatter)
+            TextField("Tax", value:$viewModel.model.tax, formatter:viewModel.currencyFormatter)
                 .font(.largeTitle)
-            TextField("Gross", value:$viewModel.model.gross, formatter:currencyFormatter)
+            Text(viewModel.gross)
                 .font(.largeTitle)
         }
     }

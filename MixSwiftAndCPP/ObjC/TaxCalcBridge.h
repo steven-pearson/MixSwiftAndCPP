@@ -10,9 +10,9 @@
 
 //using namespace legacy;
 
-@class TaxCalc;
+@class TaxCalcBridge;
 
-@interface TaxCalc : NSObject {
+@interface TaxCalcBridge : NSObject {
 }
 @property (nonatomic, retain, readwrite) NSNumber * _Nonnull net;
 @property (nonatomic, retain, readwrite) NSNumber * _Nonnull tax;

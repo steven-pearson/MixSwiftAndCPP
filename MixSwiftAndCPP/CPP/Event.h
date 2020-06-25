@@ -155,7 +155,7 @@
         ~CEventBase() {
         }
         
-        EventHandlerID Subscribe(std::function<void(EventArgsT&)> block) {
+        EventHandlerID Subscribe(std::function<void(EventArgsT&)> const &block) {
             _eventHandlers[_count++] = block;
             return _count-1;
         }

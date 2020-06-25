@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA67850B24A4AD0700DFD129 /* TaxCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA67850924A4AD0700DFD129 /* TaxCalculator.cpp */; };
 		AA9392DD22E6320F005F51F1 /* CTaxCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AA9392DC22E6320F005F51F1 /* CTaxCalculator.cpp */; };
-		AA9392E022E63238005F51F1 /* TaxCalc.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA9392DE22E63238005F51F1 /* TaxCalc.mm */; };
+		AA9392E022E63238005F51F1 /* TaxCalcBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = AA9392DE22E63238005F51F1 /* TaxCalcBridge.mm */; };
+		AAD0EB7622EC749900A32345 /* TaxCalcSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD0EB7522EC749900A32345 /* TaxCalcSwift.swift */; };
 		CA80B7E322B624F800E753F0 /* TaxCalcViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA80B7E222B624F800E753F0 /* TaxCalcViewModel.swift */; };
 		CABE895C22B2522400D344A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE895B22B2522400D344A2 /* AppDelegate.swift */; };
 		CABE895E22B2522400D344A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CABE895D22B2522400D344A2 /* SceneDelegate.swift */; };
@@ -19,13 +21,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA67850524A3735900DFD129 /* MixSwiftAndCPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MixSwiftAndCPP.entitlements; sourceTree = "<group>"; };
+		AA67850924A4AD0700DFD129 /* TaxCalculator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TaxCalculator.cpp; sourceTree = "<group>"; };
+		AA67850A24A4AD0700DFD129 /* TaxCalculator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TaxCalculator.hpp; sourceTree = "<group>"; };
 		AA9392D822E6320F005F51F1 /* CTransactionDto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTransactionDto.h; sourceTree = "<group>"; };
 		AA9392D922E6320F005F51F1 /* CTaxCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTaxCalculator.h; sourceTree = "<group>"; };
 		AA9392DA22E6320F005F51F1 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		AA9392DB22E6320F005F51F1 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
 		AA9392DC22E6320F005F51F1 /* CTaxCalculator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CTaxCalculator.cpp; sourceTree = "<group>"; };
-		AA9392DE22E63238005F51F1 /* TaxCalc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TaxCalc.mm; sourceTree = "<group>"; };
-		AA9392DF22E63238005F51F1 /* TaxCalc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaxCalc.h; sourceTree = "<group>"; };
+		AA9392DE22E63238005F51F1 /* TaxCalcBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TaxCalcBridge.mm; sourceTree = "<group>"; };
+		AA9392DF22E63238005F51F1 /* TaxCalcBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaxCalcBridge.h; sourceTree = "<group>"; };
+		AAD0EB7522EC749900A32345 /* TaxCalcSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxCalcSwift.swift; sourceTree = "<group>"; };
 		CA80B7E222B624F800E753F0 /* TaxCalcViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxCalcViewModel.swift; sourceTree = "<group>"; };
 		CABE895822B2522400D344A2 /* MixSwiftAndCPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixSwiftAndCPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABE895B22B2522400D344A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,11 +55,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA67850624A4A10400DFD129 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
 		AA9392D622E63172005F51F1 /* ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				AA9392DF22E63238005F51F1 /* TaxCalc.h */,
-				AA9392DE22E63238005F51F1 /* TaxCalc.mm */,
+				AA9392DF22E63238005F51F1 /* TaxCalcBridge.h */,
+				AA9392DE22E63238005F51F1 /* TaxCalcBridge.mm */,
 			);
 			path = ObjC;
 			sourceTree = "<group>";
@@ -66,6 +79,8 @@
 				AA9392D822E6320F005F51F1 /* CTransactionDto.h */,
 				AA9392DA22E6320F005F51F1 /* Event.h */,
 				AA9392DB22E6320F005F51F1 /* Property.h */,
+				AA67850924A4AD0700DFD129 /* TaxCalculator.cpp */,
+				AA67850A24A4AD0700DFD129 /* TaxCalculator.hpp */,
 			);
 			path = CPP;
 			sourceTree = "<group>";
@@ -89,17 +104,20 @@
 		CABE895A22B2522400D344A2 /* MixSwiftAndCPP */ = {
 			isa = PBXGroup;
 			children = (
-				AA9392D722E6317D005F51F1 /* CPP */,
-				AA9392D622E63172005F51F1 /* ObjC */,
-				CABE895B22B2522400D344A2 /* AppDelegate.swift */,
-				CABE895D22B2522400D344A2 /* SceneDelegate.swift */,
-				CABE895F22B2522400D344A2 /* ContentView.swift */,
-				CABE896122B2522500D344A2 /* Assets.xcassets */,
-				CABE896622B2522500D344A2 /* LaunchScreen.storyboard */,
-				CABE896922B2522500D344A2 /* Info.plist */,
-				CABE896322B2522500D344A2 /* Preview Content */,
+				AA67850624A4A10400DFD129 /* Swift */,
+				AA67850524A3735900DFD129 /* MixSwiftAndCPP.entitlements */,
 				CABE896F22B2527C00D344A2 /* MixSwiftAndCPP-Bridging-Header.h */,
+				CABE896922B2522500D344A2 /* Info.plist */,
+				CABE895B22B2522400D344A2 /* AppDelegate.swift */,
+				CABE895F22B2522400D344A2 /* ContentView.swift */,
+				CABE895D22B2522400D344A2 /* SceneDelegate.swift */,
 				CA80B7E222B624F800E753F0 /* TaxCalcViewModel.swift */,
+				CABE896122B2522500D344A2 /* Assets.xcassets */,
+				AA9392D722E6317D005F51F1 /* CPP */,
+				CABE896622B2522500D344A2 /* LaunchScreen.storyboard */,
+				AA9392D622E63172005F51F1 /* ObjC */,
+				CABE896322B2522500D344A2 /* Preview Content */,
+				AAD0EB7522EC749900A32345 /* TaxCalcSwift.swift */,
 			);
 			path = MixSwiftAndCPP;
 			sourceTree = "<group>";
@@ -184,12 +202,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA9392E022E63238005F51F1 /* TaxCalc.mm in Sources */,
+				AA9392E022E63238005F51F1 /* TaxCalcBridge.mm in Sources */,
+				AA67850B24A4AD0700DFD129 /* TaxCalculator.cpp in Sources */,
 				CABE895C22B2522400D344A2 /* AppDelegate.swift in Sources */,
 				CA80B7E322B624F800E753F0 /* TaxCalcViewModel.swift in Sources */,
 				CABE895E22B2522400D344A2 /* SceneDelegate.swift in Sources */,
 				CABE896022B2522400D344A2 /* ContentView.swift in Sources */,
 				AA9392DD22E6320F005F51F1 /* CTaxCalculator.cpp in Sources */,
+				AAD0EB7622EC749900A32345 /* TaxCalcSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,9 +346,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MixSwiftAndCPP/MixSwiftAndCPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "MixSwiftAndCPP/Preview\\ Content";
-				DEVELOPMENT_TEAM = V8ZV6KCSH4;
+				DEVELOPMENT_TEAM = 7259K237G2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MixSwiftAndCPP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -337,6 +358,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.solarwinds.MixSwiftAndCPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MixSwiftAndCPP/MixSwiftAndCPP-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -349,9 +371,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MixSwiftAndCPP/MixSwiftAndCPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "MixSwiftAndCPP/Preview\\ Content";
-				DEVELOPMENT_TEAM = V8ZV6KCSH4;
+				DEVELOPMENT_TEAM = 7259K237G2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MixSwiftAndCPP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -360,6 +383,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.solarwinds.MixSwiftAndCPP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "MixSwiftAndCPP/MixSwiftAndCPP-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
