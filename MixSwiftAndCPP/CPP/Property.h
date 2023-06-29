@@ -23,13 +23,13 @@ namespace tax {
 
     class INotifyPropertyChange {
     public:
-        virtual void OnPropertyChanging(CNotifyPropertyChangingEventArgs& args) const = 0;
-        virtual void OnPropertyChanged(CNotifyPropertyChangedEventArgs& args) const = 0;
+        virtual void OnChanging(NotifyPropertyChangingEventArgs& args) const = 0;
+        virtual void OnChanged(NotifyPropertyChangedEventArgs& args) const = 0;
     };
 
-    class CPropertyBase {
+    class PropertyBase {
     public:
-        CPropertyBase(const std::string& name) : _name(name) {
+        PropertyBase(const std::string& name) : _name(name) {
         }
 
         const std::string& name() const {
@@ -41,13 +41,13 @@ namespace tax {
     };
 
     template <typename TValueType>
-    class CProperty : public CPropertyBase {
+    class Property : public PropertyBase {
 
     public:
         typedef std::function<TValueType()> Getter;
         typedef std::function<void(TValueType)> Setter;
 
-        CProperty(const char* name, INotifyPropertyChange* container, Getter getter, Setter setter = NULL) : CPropertyBase(name) {
+        Property(const char* name, INotifyPropertyChange* container, Getter getter, Setter setter = NULL) : PropertyBase(name) {
             _container = container;
             _set = setter;
             _get = getter;
@@ -86,17 +86,17 @@ namespace tax {
             return TValueType(NULL);
         }
         
-        CEventBase<CPropertyChangingEventArgs<TValueType>> Changing;
+        EventBase<PropertyChangingEventArgs<TValueType>> Changing;
         
-        CEventBase<CPropertyChangedEventArgs<TValueType>> Changed;
+        EventBase<PropertyChangedEventArgs<TValueType>> Changed;
         
         void OnChanging(const TValueType &proposedValue) {
             // TODO Add the ability to cancel here by adding some event args and a cancel option
             
-            CPropertyChangingEventArgs<TValueType> args(proposedValue, name());
+            PropertyChangingEventArgs<TValueType> args(proposedValue, name());
             if (_container) {
-                CNotifyPropertyChangingEventArgs notifyArgs(name());
-                _container->OnPropertyChanging(notifyArgs);
+                NotifyPropertyChangingEventArgs notifyArgs(name());
+                _container->OnChanging(notifyArgs);
             }
             Changing.Notify(args);
             
@@ -104,11 +104,11 @@ namespace tax {
         }
         
         void OnChanged(const TValueType &newValue) {
-            CPropertyChangedEventArgs<TValueType> args(newValue, name());
+            PropertyChangedEventArgs<TValueType> args(newValue, name());
             Changed.Notify(args);
             if (_container) {
-                CNotifyPropertyChangedEventArgs notifyArgs(name());
-                _container->OnPropertyChanged(notifyArgs);
+                NotifyPropertyChangedEventArgs notifyArgs(name());
+                _container->OnChanged(notifyArgs);
             }
         }
 

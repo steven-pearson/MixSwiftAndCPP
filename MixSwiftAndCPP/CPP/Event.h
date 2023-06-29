@@ -30,9 +30,9 @@ namespace tax {
         std::string _what;
     };
     
-    class CEventArgs {
+    class EventArgs {
     public:
-        CEventArgs(bool canStop = false) : _canStop(canStop) {
+        EventArgs(bool canStop = false) : _canStop(canStop) {
             _stop = false;
         }
         
@@ -55,10 +55,10 @@ namespace tax {
         const bool _canStop;
     };
 
-    class CNotifyPropertyChangingEventArgs : public CEventArgs {
+class NotifyPropertyChangingEventArgs : public EventArgs{
         
     public:
-        CNotifyPropertyChangingEventArgs(const std::string& name) :
+        NotifyPropertyChangingEventArgs(const std::string& name) :
             _name(name) {
         }
         
@@ -68,10 +68,10 @@ namespace tax {
         const std::string& _name;
     };
 
-    class CNotifyPropertyChangedEventArgs : public CEventArgs {
+    class NotifyPropertyChangedEventArgs : public EventArgs {
         
     public:
-        CNotifyPropertyChangedEventArgs(const std::string& name) : _name(name) {
+        NotifyPropertyChangedEventArgs(const std::string& name) : _name(name) {
         }
         
         const std::string& name() const { return _name; }
@@ -81,10 +81,10 @@ namespace tax {
     };
 
     template<typename ParamT>
-    class CPropertyChangingEventArgs : public CEventArgs {
+    class PropertyChangingEventArgs : public EventArgs {
         
     public:
-        CPropertyChangingEventArgs(const ParamT& proposedValue, const std::string& name) :
+        PropertyChangingEventArgs(const ParamT& proposedValue, const std::string& name) :
             _proposedValue(proposedValue),
             _name(name) {
         }
@@ -98,10 +98,10 @@ namespace tax {
     };
 
     template<typename ParamT>
-    class CPropertyChangedEventArgs : public CEventArgs {
+    class PropertyChangedEventArgs : public EventArgs {
         
     public:
-        CPropertyChangedEventArgs(const ParamT& newValue, const std::string& name) :
+        PropertyChangedEventArgs(const ParamT& newValue, const std::string& name) :
             _newValue(newValue),
             _name(name) {
         }
@@ -115,22 +115,22 @@ namespace tax {
     };
 
     template<typename ParamT>
-    class CEventHandlerBase {
+    class EventHandlerBase {
     public:
-        virtual void Notify(CEventArgs& eventArgs) const = 0;
-        virtual ~CEventHandlerBase() {};
+        virtual void Notify(EventArgs& eventArgs) const = 0;
+        virtual ~EventHandlerBase() {};
     };
 
     //template<typename EventArgsT>
     //typedef std::function<void(EventArgsT&)> EventHandler;
 
     template<typename EventArgsT>
-    class CEventHandler : public CEventHandlerBase<EventArgsT> {
+    class EventHandler : public EventHandlerBase<EventArgsT> {
         void *_context;
         std::function<void(EventArgsT&)> _eventHandler;
         
     public:
-        CEventHandler(void *context, std::function<void(EventArgsT&)> eventHandler)
+        EventHandler(void *context, std::function<void(EventArgsT&)> eventHandler)
         : _context(context), _eventHandler(eventHandler)
         {
         }
@@ -141,18 +141,18 @@ namespace tax {
     };
 
     template<typename EventArgsT>
-    class CEventBase {
+    class EventBase {
         typedef std::map <EventHandlerID, std::function<void(EventArgsT&)>> HandlerMap;
         HandlerMap _eventHandlers;
         EventHandlerID _count;
         
     public:
-        CEventBase()
+        EventBase()
             : _count(0)
         {
         }
         
-        ~CEventBase() {
+        ~EventBase() {
         }
         
         EventHandlerID Subscribe(std::function<void(EventArgsT&)> const &block) {

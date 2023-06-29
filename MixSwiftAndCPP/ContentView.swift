@@ -13,12 +13,25 @@ struct ContentView : View {
     
     var body: some View {
         VStack{
-            TextField("Net", value:$viewModel.model.net, formatter:viewModel.currencyFormatter)
-                .font(.largeTitle)
-            TextField("Tax", value:$viewModel.model.tax, formatter:viewModel.currencyFormatter)
-                .font(.largeTitle)
-            Text(viewModel.gross)
-                .font(.largeTitle)
+            HStack {
+                Text("Net")
+                    .font(.largeTitle)
+                TextField("Net", value:$viewModel.model.net, formatter:viewModel.currencyFormatter)
+                    .font(.largeTitle)
+            }
+            HStack {
+                Text("Tax")
+                    .font(.largeTitle)
+                TextField("Tax", value:$viewModel.model.tax, formatter:viewModel.currencyFormatter)
+                    .font(.largeTitle)
+            }
+            HStack {
+                Text("Gross")
+                    .font(.largeTitle)
+
+                Text(viewModel.gross)
+                    .font(.largeTitle)
+            }
         }
     }
 }

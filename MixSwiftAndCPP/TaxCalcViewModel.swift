@@ -16,7 +16,9 @@ class TaxCalcViewModel : NSObject, ObservableObject {
 
     let currencyFormatter: NumberFormatter = {
         let f = NumberFormatter()
-        f.numberStyle = .currency
+        f.numberStyle = .decimal
+        f.maximumFractionDigits = 2
+        f.minimumFractionDigits = 2
         return f
     }()
     
@@ -24,7 +26,7 @@ class TaxCalcViewModel : NSObject, ObservableObject {
         model = TaxCalcSwift()
         super.init()
         
-        model.net = 100;
+        //model.net = 100;
         model.taxRate = 0.2;
     }
 

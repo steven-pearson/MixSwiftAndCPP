@@ -2,68 +2,61 @@
 //  TaxCalculator.cpp
 //  MixSwiftAndCPP
 //
-//  Created by Steven Pearson on 25/06/2020.
-//  Copyright © 2020 Steve Pearson . All rights reserved.
+//  Created by Steve Pearson  on 16/06/2019.
+//  Copyright © 2019 Steve Pearson . All rights reserved.
 //
 
-#include "TaxCalculator.hpp"
-#include "CTaxCalculator.h"
+#include "TaxCalculator.h"
+#include <string.h>
 
-const void *createInstance() {
-    CTaxCalculator* instance = new CTaxCalculator(new tax::CTransactionDto());
-    instance->TaxRate = 0.2;
-    return instance;
+TaxCalculator::TaxCalculator(Transaction *data) :
+    _data(data),
+    Net("net", this, [=](){ return this->_data->_net; }, [=](const double value) { this->_data->_net = value; }),
+    Tax("tax", this, [=](){ return this->_data->_tax; }, [=](const double value) { this->_data->_tax = value; }),
+    TaxRate("taxRate", this, [=](){ return this->_data->_taxRate; }, [=](const double value) { this->_data->_taxRate = value; }),
+    Gross("gross", this, [=](){ return this->_data->_gross; })
+{
+    _netChangedHandlerID = Net.Changed.Subscribe([=](PropertyChangedEventArgs<double>& args) { CalculateTax(); });
+    _taxRateChangedHandlerID = TaxRate.Changed.Subscribe([=](PropertyChangedEventArgs<double>& args) { CalculateTax(); });
+    _taxChangedHandlerID = Tax.Changed.Subscribe([=](PropertyChangedEventArgs<double>& args) { CalculateGross(); });
 }
 
-int subscribeToPropertyChanged(const void * context, property_event_callback callback, const void * obj) {
-
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-        
-    std::function<void(const CNotifyPropertyChangingEventArgs&)> lambda = [=](const CNotifyPropertyChangingEventArgs& s) {
-        callback(s.name().c_str(), obj);
-    };
-    
-    return calc->PropertyChanging.Subscribe(lambda);
+TaxCalculator::~TaxCalculator() {
+    Net.Changed.Unsubscribe(_netChangedHandlerID);
+    Tax.Changed.Unsubscribe(_taxChangedHandlerID);
+    TaxRate.Changed.Unsubscribe(_taxRateChangedHandlerID);
 }
 
-double getNet(const void * context) {
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-    
-    return calc->Net;
+void TaxCalculator::OnNetChanged(NotifyPropertyChangedEventArgs& args) {
+    CalculateTax();
 }
 
-void setNet(const void * context, double value) {
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-    
-    calc->Net = value;
+void TaxCalculator::OnTaxChanged(NotifyPropertyChangedEventArgs& args) {
+    CalculateGross();
 }
 
-double getTaxRate(const void * context) {
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-    
-    return calc->TaxRate;
+void TaxCalculator::OnTaxRateChanged(NotifyPropertyChangedEventArgs& args) {
+    CalculateTax();
 }
 
-void setTaxRate(const void * context, double value) {
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-    
-    calc->TaxRate = value;
+void TaxCalculator::CalculateTax() {
+    Tax = Net * TaxRate;
 }
 
-double getTax(const void * context) {
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-    
-    return calc->Tax;
+void TaxCalculator::CalculateGross() {
+    // gross is not writable so update the DTO but fire notifications
+    Gross.OnChanging(_data->_gross);
+    _data->_gross = Net + Tax;
+    Gross.OnChanged(_data->_gross);
 }
 
-void setTax(const void * context, double value) {
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-    
-    calc->Tax = value;
+void TaxCalculator::OnChanging(NotifyPropertyChangingEventArgs& args) const {
+    Changing.Notify(args);
 }
 
-double getGross(const void * context) {
-    CTaxCalculator* calc = (CTaxCalculator*)context;
-    
-    return calc->Gross;
+void TaxCalculator::OnChanged(NotifyPropertyChangedEventArgs& args) const {
+    Changed.Notify(args);
 }
+
+
+
