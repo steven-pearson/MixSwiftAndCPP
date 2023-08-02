@@ -9,12 +9,17 @@
 #ifndef __Event_h
 #define __Event_h
 
+#ifdef _MSC_VER
 #pragma once
+#endif
 
+// LCOV_EXCL_START
 #include <map>
 #include <string>
 #include <exception>
 #include <functional>
+#include <iostream>
+// LCOV_EXCL_STOP
 
 namespace tax {
     typedef unsigned int EventHandlerID;
@@ -32,33 +37,37 @@ namespace tax {
     
     class EventArgs {
     public:
-        EventArgs(bool canStop = false) : _canStop(canStop) {
-            _stop = false;
+        EventArgs(bool cancellable = false) : _cancellable(cancellable) {
+            _cancelled = false;
         }
         
-        const bool CanStop() const { return _canStop; }
+        const bool cancellable() const { return _cancellable; }
         
-        const bool IsStopSet() const { return _stop; }
+        const bool cancelled() const { return _cancelled; }
         
-        void SetFailureInfo(bool stop, const std::string& failureCode, const std::string& failureReason) {
-            _failureCode = failureCode;
-            _failureReason = failureReason;
-            _stop = stop;
+        void cancel(const std::string& failureCode = "", const std::string& failureReason = "") {
+            if (_cancellable && !_cancelled) {
+                _cancelled = true;
+                _failureCode = failureCode;
+                _failureReason = failureReason;
+            }
         }
         
-        const std::string& GetFailureReason() const { return _failureReason; }
+        const std::string& failureReason() const { return _failureReason; }
+        const std::string& failureCode() const { return _failureCode; }
         
     private:
         std::string _failureCode;
         std::string _failureReason;
-        bool _stop;
-        const bool _canStop;
+        bool _cancelled = false;
+        const bool _cancellable;
     };
 
-class NotifyPropertyChangingEventArgs : public EventArgs{
+    class NotifyPropertyChangingEventArgs : public EventArgs{
         
     public:
         NotifyPropertyChangingEventArgs(const std::string& name) :
+            EventArgs(true),
             _name(name) {
         }
         
@@ -85,8 +94,9 @@ class NotifyPropertyChangingEventArgs : public EventArgs{
         
     public:
         PropertyChangingEventArgs(const ParamT& proposedValue, const std::string& name) :
-            _proposedValue(proposedValue),
-            _name(name) {
+            EventArgs(true),
+            _name(name),
+            _proposedValue(proposedValue) {
         }
         
         const std::string& name() const { return _name; }
@@ -102,8 +112,8 @@ class NotifyPropertyChangingEventArgs : public EventArgs{
         
     public:
         PropertyChangedEventArgs(const ParamT& newValue, const std::string& name) :
-            _newValue(newValue),
-            _name(name) {
+            _name(name),
+            _newValue(newValue) {
         }
         
         const std::string& name() const { return _name; }
@@ -120,9 +130,6 @@ class NotifyPropertyChangingEventArgs : public EventArgs{
         virtual void Notify(EventArgs& eventArgs) const = 0;
         virtual ~EventHandlerBase() {};
     };
-
-    //template<typename EventArgsT>
-    //typedef std::function<void(EventArgsT&)> EventHandler;
 
     template<typename EventArgsT>
     class EventHandler : public EventHandlerBase<EventArgsT> {
@@ -153,6 +160,9 @@ class NotifyPropertyChangingEventArgs : public EventArgs{
         }
         
         ~EventBase() {
+            for (size_t i = _eventHandlers.size() - 1; i < 0; i--) {
+            _eventHandlers.erase(i);
+            }
         }
         
         EventHandlerID Subscribe(std::function<void(EventArgsT&)> const &block) {
@@ -164,15 +174,15 @@ class NotifyPropertyChangingEventArgs : public EventArgs{
             _eventHandlers.erase(handlerId);
         }
         
-        void Notify(EventArgsT eventArgs) const {
-            // Iterate through the handlers calling each one in turn
-            for (unsigned int index=0; index < _count && index < _eventHandlers.size(); index++) {
+        const bool Notify(EventArgsT eventArgs) const {
+            for (size_t index=0; index < _count && index < _eventHandlers.size(); index++) {
                 _eventHandlers.find(index)->second(eventArgs);
-                if (eventArgs.IsStopSet()) {
-                    throw event_exception(eventArgs.GetFailureReason());
-                    break;
+                if (eventArgs.cancelled()) {
+                    std::cout << "Cancelled event";
+                    return false;
                 }
             }
+            return true;
         }
     };
 }

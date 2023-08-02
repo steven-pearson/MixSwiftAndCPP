@@ -9,22 +9,37 @@
 #ifndef __Property_h
 #define __Property_h
 
+#ifdef _MSC_VER
 #pragma once
+#endif
 
 #include "Event.h"
+// LCOV_EXCL_START
 #include <utility>
 #include <assert.h>
 #include <string>
 #include <functional>
+// LCOV_EXCL_STOP
 
+#ifdef _MSC_VER
 #pragma pack(push, 1)
+#endif
 
 namespace tax {
 
     class INotifyPropertyChange {
     public:
-        virtual void OnChanging(NotifyPropertyChangingEventArgs& args) const = 0;
-        virtual void OnChanged(NotifyPropertyChangedEventArgs& args) const = 0;
+        EventBase<NotifyPropertyChangingEventArgs> Changing;
+        EventBase<NotifyPropertyChangedEventArgs> Changed;
+
+    public:
+        virtual void OnChanging(NotifyPropertyChangingEventArgs& args) const {
+            Changing.Notify(args);
+        }
+
+        virtual void OnChanged(NotifyPropertyChangedEventArgs& args) const {
+            Changed.Notify(args);
+        }
     };
 
     class PropertyBase {
@@ -53,8 +68,10 @@ namespace tax {
             _get = getter;
         }
 
-    #pragma warning (push)
-    #pragma warning (disable : 4181 )
+#ifdef _MSC_VER
+#pragma warning (push)
+#pragma warning (disable : 4181 )
+#endif
         //-- Overload the = operator to set the value using the set member --
         void operator =(TValueType value) {
             if (_set != NULL) {
@@ -70,8 +87,9 @@ namespace tax {
                 }
             }
         }
-    #pragma warning (pop)
-
+#ifdef _MSC_VER
+#pragma warning (pop)
+#endif
         //-- Cast the property class to the internal type --
         operator TValueType() {
             try {
@@ -90,26 +108,25 @@ namespace tax {
         
         EventBase<PropertyChangedEventArgs<TValueType>> Changed;
         
-        void OnChanging(const TValueType &proposedValue) {
-            // TODO Add the ability to cancel here by adding some event args and a cancel option
-            
-            PropertyChangingEventArgs<TValueType> args(proposedValue, name());
+        const bool OnChanging(const TValueType &proposedValue) {
             if (_container) {
-                NotifyPropertyChangingEventArgs notifyArgs(name());
-                _container->OnChanging(notifyArgs);
+                NotifyPropertyChangingEventArgs args(name());
+                _container->OnChanging(args);
+                if (args.cancelled()) {
+                    return false;
+                }
             }
-            Changing.Notify(args);
-            
-            // TODO If cancel, put the original value back etc
+            return Changing.Notify(PropertyChangingEventArgs<TValueType>(proposedValue, name()));
         }
         
-        void OnChanged(const TValueType &newValue) {
+        const bool OnChanged(const TValueType &newValue) {
             PropertyChangedEventArgs<TValueType> args(newValue, name());
             Changed.Notify(args);
             if (_container) {
                 NotifyPropertyChangedEventArgs notifyArgs(name());
                 _container->OnChanged(notifyArgs);
             }
+            return true;
         }
 
     protected:
@@ -121,6 +138,7 @@ namespace tax {
     };
 }
 
+#ifdef _MSC_VER
 #pragma pack(pop)
-
+#endif
 #endif

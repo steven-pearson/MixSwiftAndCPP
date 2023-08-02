@@ -1,0 +1,8 @@
+module taxCalcLib {
+    header "TaxCalculator.h"
+    header "Property.h"
+    header "Event.h"
+    header "Transaction.h"
+
+    export *
+}

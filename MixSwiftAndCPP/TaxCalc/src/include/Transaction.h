@@ -9,7 +9,9 @@
 #ifndef Transaction_h
 #define Transaction_h
 
+// LCOV_EXCL_START
 #include <stdio.h>
+// LCOV_EXCL_STOP
 
 namespace tax {
     class Transaction {
