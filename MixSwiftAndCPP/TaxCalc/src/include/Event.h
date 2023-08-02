@@ -174,7 +174,7 @@ namespace tax {
             _eventHandlers.erase(handlerId);
         }
         
-        const bool Notify(EventArgsT eventArgs) const {
+        const bool Notify(EventArgsT& eventArgs) const {
             for (size_t index=0; index < _count && index < _eventHandlers.size(); index++) {
                 _eventHandlers.find(index)->second(eventArgs);
                 if (eventArgs.cancelled()) {

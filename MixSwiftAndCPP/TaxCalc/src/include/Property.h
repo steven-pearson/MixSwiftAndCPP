@@ -80,8 +80,7 @@ namespace tax {
 
                 propertyChanging = (oldValue != value);
 
-                if (propertyChanging) {
-                    OnChanging(oldValue);
+                if (propertyChanging && OnChanging(oldValue)) {
                     _set(value);
                     OnChanged(value);
                 }
@@ -116,7 +115,8 @@ namespace tax {
                     return false;
                 }
             }
-            return Changing.Notify(PropertyChangingEventArgs<TValueType>(proposedValue, name()));
+            PropertyChangingEventArgs<TValueType> notifyArgs(proposedValue, name());
+            return Changing.Notify(notifyArgs);
         }
         
         const bool OnChanged(const TValueType &newValue) {
