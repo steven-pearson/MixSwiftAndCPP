@@ -3,3 +3,10 @@
 MixSwiftAndCPP.xcodeproj/project.xcworkspace/xcuserdata
 MixSwiftAndCPP.xcodeproj/xcuserdata
 MixSwiftAndCPP.xcworkspace/xcuserdata
+MixSwiftAndCPP/TaxCalc/Xcode/build
+MixSwiftAndCPP/TaxCalc/Xcode/tests/Debug
+MixSwiftAndCPP/TaxCalc/Xcode/src/Debug
+MixSwiftAndCPP/TaxCalc/Xcode/lib/Debug
+MixSwiftAndCPP/TaxCalc/Xcode/TaxCalc.xcodeproj/xcuserdata
+MixSwiftAndCPP/TaxCalc/Xcode/src/Debug-maccatalyst
+MixSwiftAndCPP/TaxCalc/Xcode

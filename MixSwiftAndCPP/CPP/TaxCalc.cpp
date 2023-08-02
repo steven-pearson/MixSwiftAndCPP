@@ -7,7 +7,8 @@
 //
 
 #include "TaxCalc.hpp"
-#include "TaxCalculator.h"
+
+#include "../TaxCalc/src/include/TaxCalculator.h"
 
 const void *createInstance() {
     TaxCalculator* instance = new TaxCalculator(new tax::Transaction());
