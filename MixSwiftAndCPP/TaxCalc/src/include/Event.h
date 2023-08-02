@@ -22,7 +22,7 @@
 // LCOV_EXCL_STOP
 
 namespace tax {
-    typedef unsigned int EventHandlerID;
+    typedef size_t EventHandlerID;
     
     struct event_exception: std::exception {
         event_exception (const std::string& what) { _what = what; }
